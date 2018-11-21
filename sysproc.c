@@ -90,8 +90,15 @@ sys_uptime(void)
   return xticks;
 }
 
-int sys_shutdown_time_call(void)
+int sys_shutdown_time_call(struct rtcdate *data)
 {
-  outb(0xf4,0x00);
+	data->day = 30;
+	data->month = 2;
+	data->year = 2018;  
+    	data->hour = 14;
+	data->minute = 30;
+	data->second = 0;  
+	
+  //outb(0xf4,0x00);
   return 0;
 }
