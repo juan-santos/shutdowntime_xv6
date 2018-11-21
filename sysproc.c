@@ -90,11 +90,8 @@ sys_uptime(void)
   return xticks;
 }
 
-int 
-sys_shutdown_time_call(void)
+int sys_shutdown_time_call(void)
 {
-  char *p = "Shutdown";
-  for( ; *p; p++)
-    outw(0xB004, 0x2000);
+  outb(0xf4,0x00);
   return 0;
 }
