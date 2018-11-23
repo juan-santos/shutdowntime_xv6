@@ -7,14 +7,18 @@
 int main(int argc, char *argv[]) {
 	int loop = 0;
 	struct rtcdate data;
-    	
-	data.year = 2018;
-	data.month = 11;
-	data.day = 23;
-	data.hour = 11;
-	data.minute = 10;
-	data.second = 0;
 
+	if(argc < 5){
+		printf(2, "Numero de parametros eh incompativel! \n\n\n");
+		exit();
+	}    	
+
+	data.year = atoi(argv[1]);
+	data.month = atoi(argv[2]);
+	data.day = atoi(argv[3]);
+	data.hour = atoi(argv[4]);
+	data.minute = atoi(argv[5]);
+	data.second = 0;
 	
     	do {	
 		printf(2, "Chamando a funcao que desliga o computador.. \n\n\n");
