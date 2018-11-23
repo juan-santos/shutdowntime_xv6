@@ -99,11 +99,15 @@ int sys_shutdown_time_call(void) {
 	}
 
 	cmostime(&atual);
-	cprintf("Horario atual: %d/%d/%d %d:%d:%d\n", atual.day, atual.month, atual.year, atual.hour, atual.minute, atual.second);
+	cprintf("Horario atual: %d/%d/%d %d:%d:%d\n", atual.day, atual.month, atual.year, 
+		atual.hour, atual.minute, atual.second);
 
-	cprintf("Horario desligamento: %d/%d/%d %d:%d:%d\n", desligamento->day, desligamento->month, desligamento->year, desligamento->hour, desligamento->minute, desligamento->second);
+	cprintf("Horario desligamento: %d/%d/%d %d:%d:%d\n", desligamento->day, desligamento->month,
+		desligamento->year, desligamento->hour, desligamento->minute, desligamento->second);
 
-	if((atual.year == desligamento->year) && (atual.month == desligamento->month) && (atual.day == desligamento->day) && (atual.hour == desligamento->hour) && (atual.minute ==  desligamento->minute)) {
+	if((atual.year == desligamento->year) && (atual.month == desligamento->month) 
+	   && (atual.day == desligamento->day) && (atual.hour == desligamento->hour) 
+	   && (atual.minute ==  desligamento->minute)) {
 		
 		//desligamento
 		cprintf("Horario de desligamento chegou..\n\n");
@@ -114,9 +118,12 @@ int sys_shutdown_time_call(void) {
 	if(
 	(atual.year > desligamento->year) ||	
 	((atual.year >= desligamento->year) && (atual.month > desligamento->month)) || 
-	((atual.year >= desligamento->year) && (atual.month >= desligamento->month) && (atual.day > desligamento->day)) ||
-	((atual.year >= desligamento->year) && (atual.month >= desligamento->month) && (atual.day >= desligamento->day) && (atual.hour > desligamento->hour)) ||
-	((atual.year >= desligamento->year) && (atual.month >= desligamento->month) && (atual.day >= desligamento->day) && (atual.hour >= desligamento->hour) && (atual.minute > desligamento->minute))
+	((atual.year >= desligamento->year) && (atual.month >= desligamento->month) && 
+	 (atual.day > desligamento->day)) ||
+	((atual.year >= desligamento->year) && (atual.month >= desligamento->month) && 
+	 (atual.day >= desligamento->day) && (atual.hour > desligamento->hour)) ||
+	((atual.year >= desligamento->year) && (atual.month >= desligamento->month) && 
+	 (atual.day >= desligamento->day) && (atual.hour >= desligamento->hour) && (atual.minute > desligamento->minute))
 	){
 
 		cprintf("Data de desligamento ja passou... \n\n");
