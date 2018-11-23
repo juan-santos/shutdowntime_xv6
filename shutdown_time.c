@@ -5,15 +5,22 @@
 #include "date.h"
 
 int main(int argc, char *argv[]) {
-	
+	int loop = 0;
 	struct rtcdate data;
+    	
+	data.year = 2018;
+	data.month = 11;
+	data.day = 23;
+	data.hour = 11;
+	data.minute = 10;
+	data.second = 0;
+
 	
-	printf(1,"Desligando o computador.. \n");
-    	shutdown_time_call(&data);
-	
-	printf(1, "Current RTC date/time is %02d-%02d-%d, %02d:%02d:%02d.\n\n",   
-    	data.day, data.month, data.year,   
-    	data.hour, data.minute, data.second);   
-	
+    	do {	
+		printf(2, "Chamando a funcao que desliga o computador.. \n\n\n");
+		loop = shutdown_time_call(&data);
+		sleep(1000);
+	} while(loop == 1);//se a data não tiver passado continuo tentando desligar
+
 	exit();
 }

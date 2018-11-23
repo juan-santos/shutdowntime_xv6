@@ -90,15 +90,38 @@ sys_uptime(void)
   return xticks;
 }
 
-int sys_shutdown_time_call(struct rtcdate *data)
-{
-	data->day = 30;
-	data->month = 2;
-	data->year = 2018;  
-    	data->hour = 14;
-	data->minute = 30;
-	data->second = 0;  
-	
-  //outb(0xf4,0x00);
-  return 0;
+int sys_shutdown_time_call(void) {
+	struct rtcdate atual;
+        struct rtcdate *desligamento;
+
+	if(argptr(0, (void*)&desligamento, sizeof(*desligamento)) < 0){
+		return -1;
+	}
+
+	cmostime(&atual);
+	cprintf("Horario atual: %d/%d/%d %d:%d:%d\n", atual.day, atual.month, atual.year, atual.hour, atual.minute, atual.second);
+
+	cprintf("Horario desligamento: %d/%d/%d %d:%d:%d\n", desligamento->day, desligamento->month, desligamento->year, desligamento->hour, desligamento->minute, desligamento->second);
+
+	if((atual.year == desligamento->year) && (atual.month == desligamento->month) && (atual.day == desligamento->day) && (atual.hour == desligamento->hour) && (atual.minute ==  desligamento->minute)) {
+		
+		//desligamento
+		cprintf("Horario de desligamento chegou..\n\n");
+		outb(0xf4,0x00);
+		return 0;
+	}
+
+	if(
+	(atual.year > desligamento->year) ||	
+	((atual.year >= desligamento->year) && (atual.month > desligamento->month)) || 
+	((atual.year >= desligamento->year) && (atual.month >= desligamento->month) && (atual.day > desligamento->day)) ||
+	((atual.year >= desligamento->year) && (atual.month >= desligamento->month) && (atual.day >= desligamento->day) && (atual.hour > desligamento->hour)) ||
+	((atual.year >= desligamento->year) && (atual.month >= desligamento->month) && (atual.day >= desligamento->day) && (atual.hour >= desligamento->hour) && (atual.minute > desligamento->minute))
+	){
+
+		cprintf("Data de desligamento ja passou... \n\n");
+		return -1;
+	}
+
+	return 1;
 }
