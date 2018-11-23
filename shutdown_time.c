@@ -1,4 +1,3 @@
-//A program which prints something on screen
 #include "types.h"
 #include "stat.h"
 #include "user.h"
